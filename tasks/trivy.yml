@@ -1,0 +1,36 @@
+---
+- name: Install prerequisite packages for Trivy
+  apt:
+    name:
+      - wget
+      - apt-transport-https
+      - gnupg
+      - lsb-release
+    state: present
+    update_cache: yes
+
+- name: Add Trivy GPG key
+  shell: |
+    wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | \
+    gpg --dearmor -o /etc/apt/keyrings/trivy.gpg
+  args:
+    creates: /etc/apt/keyrings/trivy.gpg
+
+- name: Add Trivy apt repository
+  shell: |
+    echo "deb [signed-by=/etc/apt/keyrings/trivy.gpg] \
+    https://aquasecurity.github.io/trivy-repo/deb \
+    $(lsb_release -cs) main" \
+    > /etc/apt/sources.list.d/trivy.list
+  args:
+    creates: /etc/apt/sources.list.d/trivy.list
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install Trivy
+  apt:
+    name: trivy
+    state: present
+

@@ -1,0 +1,6 @@
+galaxy_info:
+  author: Gauri
+  description: DevOps Infra Role (Jenkins, SonarQube, K8s, Helm, Prometheus, Grafana)
+  license: MIT
+  min_ansible_version: 2.12
+

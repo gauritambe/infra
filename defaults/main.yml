@@ -1,0 +1,7 @@
+---
+# defaults file for roles/infra
+kubectl_version: "v1.29.0"
+minikube_version: "latest"
+
+sonarqube_port: 9000
+

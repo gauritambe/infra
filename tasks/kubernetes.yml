@@ -1,0 +1,21 @@
+---
+- name: Install kubectl
+  shell: |
+    curl -LO https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/amd64/kubectl
+    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+  args:
+    creates: /usr/local/bin/kubectl
+
+- name: Install Minikube
+  shell: |
+    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    install minikube-linux-amd64 /usr/local/bin/minikube
+  args:
+    creates: /usr/local/bin/minikube
+
+- name: Start Minikube using Docker driver
+  command: minikube start --driver=docker
+  args:
+    creates: /root/.minikube
+  ignore_errors: true
+

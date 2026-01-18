@@ -1,0 +1,9 @@
+---
+- name: Run SonarQube container
+  community.docker.docker_container:
+    name: sonarqube
+    image: sonarqube:lts
+    ports:
+      - "{{ sonarqube_port }}:9000"
+    restart_policy: always
+

@@ -1,0 +1,10 @@
+---
+- name: Install required packages
+  apt:
+    name:
+      - curl
+      - wget
+      - git
+      - conntrack
+    state: present
+
