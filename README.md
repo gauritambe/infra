@@ -1,22 +1,19 @@
-Role Name: infra
+Role Name
 =========
 
-A brief description of the role goes here.
+This role sets up the infrastructure on your server. No variables are required. As a prerequisite, the docker_container collection must be installed.
 
-Requirements: 20GB 
+
+Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Minimum server space: 20GB
 
-Role Variables
---------------
-
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+ansible-galaxy collection install community.docker
 
 Example Playbook
 ----------------
@@ -25,14 +22,14 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.infra, x: 42 }
+         - infra
 
-License
+License: MIT
 -------
 
 BSD
 
-Author Information
+Author Information: Gauri Tambe
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Checkout my project: [Project](https://github.com/gauritambe/sap-classes)
