@@ -33,8 +33,9 @@ A description of the settable variables for this role should go here, including 
 
 Dependencies
 ------------
-
+```bash
 ansible-galaxy collection install community.docker
+```
 
 Example Playbook
 ----------------
