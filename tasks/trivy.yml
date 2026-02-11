@@ -2,35 +2,38 @@
 - name: Install prerequisite packages for Trivy
   apt:
     name:
-      - wget
-      - apt-transport-https
+      - curl
       - gnupg
       - lsb-release
     state: present
     update_cache: yes
 
-- name: Add Trivy GPG key
-  shell: |
-    wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | \
-    gpg --dearmor -o /etc/apt/keyrings/trivy.gpg
-  args:
-    creates: /etc/apt/keyrings/trivy.gpg
+- name: Create keyrings directory
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
 
-- name: Add Trivy apt repository
+- name: Download Trivy GPG key (using curl to avoid Python HTTPS bug)
   shell: |
-    echo "deb [signed-by=/etc/apt/keyrings/trivy.gpg] \
-    https://aquasecurity.github.io/trivy-repo/deb \
-    $(lsb_release -cs) main" \
-    > /etc/apt/sources.list.d/trivy.list
+    curl -fsSL https://aquasecurity.github.io/trivy-repo/deb/public.key \
+    -o /etc/apt/keyrings/trivy.asc
   args:
-    creates: /etc/apt/sources.list.d/trivy.list
+    creates: /etc/apt/keyrings/trivy.asc
 
-- name: Update apt cache
-  apt:
+- name: Set correct permissions on Trivy key
+  file:
+    path: /etc/apt/keyrings/trivy.asc
+    mode: '0644'
+
+- name: Add Trivy repository
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/trivy.asc] https://aquasecurity.github.io/trivy-repo/deb {{ ansible_distribution_release }} main"
+    filename: trivy
+    state: present
     update_cache: yes
 
 - name: Install Trivy
   apt:
     name: trivy
     state: present
-
