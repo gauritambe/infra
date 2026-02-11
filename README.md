@@ -61,4 +61,4 @@ License: MIT
 Author Information: Gauri Tambe
 ------------------
 
-Checkout my project: [Project](https://github.com/gauritambe/sap-classes)
+Checkout my project: [Project](https://github.com/gauritambe/mern-app)
